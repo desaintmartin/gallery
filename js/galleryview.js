@@ -103,11 +103,7 @@
 
 			this._setBackgroundColour();
 
-			this._selectedFiles = {};
-			this._filesConfig = new OC.Backbone.Model();
-			this._selectionSummary = new OCA.Files.FileSummary(undefined, {config: this._filesConfig});
-			this.element.on('click', '.row-element>.image-label>label', _.bind(this._onClickFile, this));
-			this.element.on('change', '.selectCheckBox', _.bind(this._onClickFileCheckbox, this));
+			this._initSelection();
 		},
 
 		/**
@@ -380,6 +376,19 @@
 					return sharedWith;
 				};
 			}
+		},
+
+		/**
+		 * Setups selection feature
+		 *
+		 * @private
+		 */
+		_initSelection: function() {
+			this._selectedFiles = {};
+			this._filesConfig = new OC.Backbone.Model();
+			this._selectionSummary = new OCA.Files.FileSummary(undefined, {config: this._filesConfig});
+			this.element.on('click', '.row-element>.image-label>label', _.bind(this._onClickFile, this));
+			this.element.on('change', '.selectCheckBox', _.bind(this._onClickFileCheckbox, this));
 		},
 
 		/**
