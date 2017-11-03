@@ -380,6 +380,8 @@
 
 		/**
 		 * Setups selection feature
+		 * Also resets file actions list to be hidden in case of user navigating
+		 * back and forth between albums
 		 *
 		 * @private
 		 */
@@ -389,6 +391,11 @@
 			this._selectionSummary = new OCA.Files.FileSummary(undefined, {config: this._filesConfig});
 			this.element.on('click', '.row-element>.image-label>label', _.bind(this._onClickFile, this));
 			this.element.on('change', '.selectCheckBox', _.bind(this._onClickFileCheckbox, this));
+
+			var selectedActionsList = $('#selectedActionsList');
+			if (selectedActionsList && !selectedActionsList.hasClass('hidden')) {
+				selectedActionsList.addClass('hidden');
+			}
 		},
 
 		/**
@@ -644,7 +651,7 @@
 		},
 
 		/**
-		 * Creates the download button
+		 * Creates the download individual files button
 		 *
 		 * @see core/apps/files/js/filelist.js
 		 * @private

@@ -131,6 +131,7 @@
 				this._addLabel();
 				this.spinner = this.domDef.children('.image-loader');
 			}
+			this._resetSelectionUI();
 			return this.domDef;
 		},
 
@@ -177,6 +178,24 @@
 				imageLabel.slideToggle(OC.menuSpeed);
 			};
 			this.domDef.hover(toggleLabel, toggleLabel);
+		},
+
+		/**
+		 * Resets selection UI
+		 * Make sure checkbox is not checked, in case of user navigating between
+		 * albums back and forth, thus reusing domDef in its last state
+		 *
+		 * @private
+		 */
+		_resetSelectionUI: function() {
+			if (this.domDef.hasClass('selected')) {
+				this.domDef.removeClass('selected');
+				var selectCheckbox = this.domDef.find('.selectCheckBox').get(0);
+				if (selectCheckbox && selectCheckbox.checked) {
+					selectCheckbox.checked = false;
+				  this.domDef.children('.image-label').hide();
+				}
+			}
 		},
 
 		/**
