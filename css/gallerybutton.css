@@ -129,3 +129,7 @@ http://davidwalsh.name/css-flip*/
 	-moz-transform: rotateX(180deg);
 	transform: rotateX(180deg);
 }
+
+#controls .right .selectedActions a {
+	opacity: 1;
+}
