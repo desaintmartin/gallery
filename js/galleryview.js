@@ -698,19 +698,22 @@
 				files[index] = OC.basename(file);
 			});
 
-			var downloadFileaction = $('#selectedActionsList').find('.download');
+			var downloadFileAction = $('#selectedActionsList').find('.download');
 
 			// don't allow a second click on the download action
-			if(downloadFileaction.hasClass('disabled')) {
+			if(downloadFileAction.hasClass('disabled')) {
 				event.preventDefault();
 				return;
 			}
 
-			var disableLoadingState = function(){
-				OCA.Files.FileActions.updateFileActionSpinner(downloadFileaction, false);
-			};
+			var icon = downloadFileAction.find('.icon');
+			var disableLoadingState = function() {
+				icon.removeClass('icon-loading-small');
+				icon.addClass('icon-download');
+			}
+			icon.removeClass('icon-download');
+			icon.addClass('icon-loading-small');
 
-			OCA.Files.FileActions.updateFileActionSpinner(downloadFileaction, true);
 			if(this.getSelectedFiles().length > 1) {
 				OCA.Files.Files.handleDownload(Gallery.getSelectionDownloadUrl(files, dir), disableLoadingState);
 			}

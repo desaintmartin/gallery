@@ -147,6 +147,3 @@ http://davidwalsh.name/css-flip*/
 #controls .right .selectedActions a {
 	opacity: 1;
 }
-#controls .right .selectedActions .button .hidden {
-	display: none;
-}
