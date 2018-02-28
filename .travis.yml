@@ -1,8 +1,6 @@
 sudo: false
 language: php
 php:
-  - 7.0
-  - 7.1
   - 7.2
 addons:
   apt:
@@ -17,15 +15,15 @@ env:
     - APP_NAME=gallery
     - SERVER_FOLDER=server
     - CLOUD=nextcloud
-    - GH_REF: github.com/nextcloud/gallery.git
+    - GH_REF: github.com/desaintmartin/gallery.git
     - secure: "cLmMqrbVZrvn2GAoVs6JWa5h70tzrAISjPZUfENjl0KYT6B84z3B94W/dGU+I2mxwvyBqEP+x83Bih2CxEflqc7tJmdqC+MM/ZZiigPX7RCjq5XHbzUpPpMbC8MFxT2K3jcFXUitfwZvNaZXJIiK3ZQJU4ayKaegLvI91x1SqH0="
   matrix:
     - DB=sqlite
-    - DB=mysql
 
 branches:
   only:
     - master
+    - selection
     - /^stable\d+(\.\d+)?$/
 
 cache:
@@ -109,14 +107,6 @@ script:
 
   # Acceptance tests, using Firefox, without code coverage
   - php vendor/bin/codecept run acceptance --env firefox
-  # Unit, integration and api tests, without code coverage
-  - sh -c "if [ '$TRAVIS_PHP_VERSION' != '7.0' ]; then php vendor/bin/codecept run unit,integration,api; fi;"
-  - sh -c "if [ '$TRAVIS_PHP_VERSION' = '7.0' ] && [ '$DB' != 'mysql' ]; then php vendor/bin/codecept run unit,integration,api; fi;"
-
-  # PHP 7.0 ONLY: Unit, integration and api tests with code coverage
-  - sh -c "if [ '$TRAVIS_PHP_VERSION' = '7.0' ] && [ '$DB' = 'mysql' ]; then php vendor/bin/codecept run unit,integration,api --coverage --coverage-xml --coverage-html; fi;"
-  # We can't use phpdbg only as it doesn't work with the webdriver and we can't use it for some tests only as we can't merge html reports
-  # - sh -c "if [ '$TRAVIS_PHP_VERSION' = '7.0' ] && [ '$DB' = 'mysql' ]; then phpenv config-rm xdebug.ini; phpdbg -qrr vendor/bin/codecept run unit,integration,api --coverage --coverage-xml --coverage-html; fi;"
 
 after_success:
   # Send coverage report to Codecov
@@ -136,8 +126,3 @@ after_failure:
   - cat tests/_output/phpbuiltinserver.access_log.txt
   - bash build/after_failure.sh
 
-matrix:
-  include:
-    - php: 7.1
-      env: DB=pgsql
-  fast_finish: true
