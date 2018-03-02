@@ -21,9 +21,7 @@
   "slideshow.js",
   "slideshowcontrols.js",
   "slideshowzoomablepreview.js",
-  "upload-helper.js",
+  "files-helper.js",
   "vendor/nextcloud/newfilemenu.js",
-  "newfilemenuplugins.js",
-  "vendor/nextcloud/filesummary.js",
-  "vendor/nextcloud/files.js"
+  "newfilemenuplugins.js"
 ]

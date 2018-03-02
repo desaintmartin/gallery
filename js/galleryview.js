@@ -49,10 +49,6 @@
 		 */
 		_selectionSummary: null,
 		/**
-		 * @type Backbone.Model
-		 */
-		_filesConfig: undefined,
-		/**
 		 * Initialiation status
 		 * @type Boolean
 		 */
@@ -395,8 +391,7 @@
 		 */
 		_initSelection: function() {
 			this._selectedFiles = {};
-			this._filesConfig = new OC.Backbone.Model();
-			this._selectionSummary = new OCA.Files.FileSummary(undefined, {config: this._filesConfig});
+			this._selectionSummary = new OCA.Files.FileSummary();
 			if (!this.initialized) {
 				this.element.on('change', '.selectCheckBox', _.bind(this._onClickFileCheckbox, this));
 			}
