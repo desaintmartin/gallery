@@ -14,9 +14,8 @@
 	"use strict";
 
 	var TEMPLATE_ADDBUTTON = '<a href="#" class="button new"><span class="icon icon-add"></span><span class="hidden-visually">New</span></a>';
-	var TEMPLATE_DOWNLOADBUTTON = '<span id="selectedActionsList" class="selectedActions hidden">' +
-		'<div href="#" class="button download"><span class="icon icon-download"></span>' +
-		'<span class="hidden-visually">Download</span></div></span>';
+	var TEMPLATE_DOWNLOADBUTTON = '<a href="#" id="download-selected-button" class="button download hidden"><span class="icon icon-download"></span>' +
+		'<span class="hidden-visually">Download</span></a>';
 
 	/**
 	 * Builds and updates the Gallery view
@@ -396,9 +395,9 @@
 				this.element.on('change', '.selectCheckBox', _.bind(this._onClickFileCheckbox, this));
 			}
 
-			var selectedActionsList = $('#selectedActionsList');
-			if (selectedActionsList && !selectedActionsList.hasClass('hidden')) {
-				selectedActionsList.addClass('hidden');
+			var downloadSelectedButton = $('#download-selected-button');
+			if (downloadSelectedButton && !downloadSelectedButton.hasClass('hidden')) {
+				downloadSelectedButton.addClass('hidden');
 			}
 		},
 
@@ -691,7 +690,7 @@
 				files[index] = OC.basename(file);
 			});
 
-			var downloadFileActionIcon = $('#selectedActionsList').find('.download .icon');
+			var downloadFileActionIcon = $('#download-selected-button .icon');
 
 			// don't allow a second click on the download action
 			if (downloadFileActionIcon.hasClass('icon-loading-small')) {
@@ -803,10 +802,10 @@
 			var summary = this._selectionSummary.summary;
 
 			if (summary.totalFiles === 0 && summary.totalDirs === 0) {
-				$('#selectedActionsList').addClass('hidden');
+				$('#download-selected-button').addClass('hidden');
 			}
 			else {
-				$('#selectedActionsList').removeClass('hidden');
+				$('#download-selected-button').removeClass('hidden');
 			}
 		},
 
